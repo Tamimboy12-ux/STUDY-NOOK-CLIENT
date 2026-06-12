@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         <main className="my-6 w-11/12 mx-auto">
           {children}
         </main>
-        {/* <Footer></Footer> */}
+        <Footer></Footer>
         {/* <Toaster/> */}
         </body>
     </html>
