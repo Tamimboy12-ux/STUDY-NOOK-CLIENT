@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BsFillEmojiAngryFill } from "react-icons/bs";
+
 
 export default function NotFound() {
   return (
