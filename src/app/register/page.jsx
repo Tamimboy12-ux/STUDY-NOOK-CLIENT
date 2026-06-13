@@ -86,7 +86,6 @@ export default function RegisterPage() {
             <Alert color="success" title={successMessage} variant="faded" className="w-full" />
           )}
 
-          {/* Full Name Field */}
           <TextField isRequired className="w-full flex flex-col gap-1">
             <Label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Full Name</Label>
             <InputGroup>
@@ -101,7 +100,6 @@ export default function RegisterPage() {
             </InputGroup>
           </TextField>
 
-          {/* Profile Image URL Field */}
           <TextField className="w-full flex flex-col gap-1">
             <Label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Profile Image URL</Label>
             <InputGroup>
@@ -117,7 +115,6 @@ export default function RegisterPage() {
             </InputGroup>
           </TextField>
 
-          {/* Email Field */}
           <TextField isRequired className="w-full flex flex-col gap-1">
             <Label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Email Address</Label>
             <InputGroup>
@@ -133,7 +130,6 @@ export default function RegisterPage() {
             </InputGroup>
           </TextField>
 
-          {/* Password Field */}
           <TextField isRequired className="w-full flex flex-col gap-1">
             <Label>Password</Label>
 
@@ -177,11 +173,10 @@ export default function RegisterPage() {
           </Button>
         </Form>
 
-        {/* Footer Link */}
         <div className="text-center text-sm mt-2">
           <span className="text-gray-500">Already have an account? </span>
-          <Link href="/login" className="text-blue-600 hover:underline font-medium dark:text-blue-400">
-            Log In
+          <Link href="/login" className="text-red-600 text-lg hover:underline font-bold dark:text-blue-400">
+            LogIn
           </Link>
         </div>
       </Card>
