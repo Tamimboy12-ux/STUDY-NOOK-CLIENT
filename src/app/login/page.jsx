@@ -8,6 +8,7 @@ import { Card, TextField, Label, Input, InputGroup, Button, Form, Alert,} from "
 import { ArrowLeft, Envelope, Lock, Eye, EyeSlash,} from "@gravity-ui/icons";
 
 import { signIn } from "@/lib/auth-client";
+import { FaGoogle } from "react-icons/fa";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -20,6 +21,12 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  const handleGoogleLogin = async () => {
+     await signIn.social({
+       provider: "google",
+     });
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -170,6 +177,19 @@ export default function LoginPage() {
           >
             {isLoading ? "Logging In..." : "Login"}
           </Button>
+
+           <div className="">
+              <p className="text-center text-gray-600">Or</p>
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full"
+                onPress={handleGoogleLogin}
+              >
+                <FaGoogle />
+                Continue with Google
+              </Button>
+            </div>
         </Form>
 
         <div className="text-center text-sm mt-2">

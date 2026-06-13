@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, TextField, Label, Input, InputGroup, Button, Form, Alert } from "@heroui/react";
 import { ArrowLeft, Envelope, Eye, EyeSlash, Lock, Person, Picture } from "@gravity-ui/icons";
-import { signUp } from "@/lib/auth-client"; 
+import { signIn, signUp } from "@/lib/auth-client"; 
+import { FaGoogle } from "react-icons/fa";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -20,6 +21,12 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  const handleGoogleLogin = async () => {
+    await signIn.social({
+      provider: "google",
+    });
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -171,6 +178,18 @@ export default function RegisterPage() {
           >
             {isLoading ? "Creating Account..." : "Register"}
           </Button>
+          <div className="">
+            <p className="text-center text-gray-600">Or</p>
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full"
+              onPress={handleGoogleLogin}
+            >
+              <FaGoogle />
+              Continue with Google
+            </Button>
+          </div>
         </Form>
 
         <div className="text-center text-sm mt-2">
