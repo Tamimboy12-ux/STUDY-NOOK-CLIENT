@@ -9,6 +9,7 @@ import { ArrowLeft, Envelope, Lock, Eye, EyeSlash,} from "@gravity-ui/icons";
 
 import { signIn } from "@/lib/auth-client";
 import { FaGoogle } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -26,6 +27,8 @@ export default function LoginPage() {
      await signIn.social({
        provider: "google",
      });
+
+     toast.success("Google SignIn Successful")
   };
 
   const handleLogin = async (e) => {
@@ -65,6 +68,8 @@ export default function LoginPage() {
     } finally {
       setIsLoading(false);
     }
+
+    toast.success("Login Successful")
   };
 
   return (

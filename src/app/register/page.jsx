@@ -7,6 +7,7 @@ import { Card, TextField, Label, Input, InputGroup, Button, Form, Alert } from "
 import { ArrowLeft, Envelope, Eye, EyeSlash, Lock, Person, Picture } from "@gravity-ui/icons";
 import { signIn, signUp } from "@/lib/auth-client"; 
 import { FaGoogle } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -26,6 +27,8 @@ export default function RegisterPage() {
     await signIn.social({
       provider: "google",
     });
+
+    toast.success("Google SignIn Successful")
   };
 
   const handleRegister = async (e) => {
@@ -36,6 +39,34 @@ export default function RegisterPage() {
 
     if (!name || !email || !password) {
       setErrorMessage("Please fill in all required fields.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!imageUrl) {
+      setErrorMessage("Profile image URL is required.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (password.length < 6) {
+      setErrorMessage("Password must be at least 6 characters.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      setErrorMessage(
+        "Password must contain at least one uppercase letter."
+      );
+      setIsLoading(false);
+      return;
+    }
+
+    if (!/[a-z]/.test(password)) {
+      setErrorMessage(
+        "Password must contain at least one lowercase letter."
+      );
       setIsLoading(false);
       return;
     }
@@ -66,6 +97,9 @@ export default function RegisterPage() {
     } finally {
       setIsLoading(false);
     }
+
+    toast.success("Register Successful")
+
   };
 
   return (
