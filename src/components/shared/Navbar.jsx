@@ -53,7 +53,7 @@ const Navbar = () => {
                 size="sm"
               />
 
-              <p>{user?.name}</p>
+              <p>Hi, {user?.name}</p>
 
               <Button variant="danger" onPress={handleLogout}>
                 Logout

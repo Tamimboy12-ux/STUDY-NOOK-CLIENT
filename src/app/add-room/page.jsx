@@ -3,8 +3,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useSession } from "@/lib/auth-client";
 
 export default function AddRoomPage() {
+
+    const { data } = useSession();
+
+    const user = data?.user;
+
   const router = useRouter();
 
   const [form, setForm] = useState({
@@ -64,7 +70,13 @@ export default function AddRoomPage() {
           ...form,
           capacity: Number(form.capacity),
           hourlyRate: Number(form.hourlyRate),
+                
+          ownerEmail: user?.email,
+          ownerName: user?.name,
+          ownerImage: user?.image,
+          ownerId: user?.id,
         }),
+
       });
 
       const data = await res.json();
