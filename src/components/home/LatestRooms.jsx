@@ -1,3 +1,4 @@
+import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,7 +18,7 @@ const LatestRooms = async () => {
           Latest Study Rooms
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {rooms.slice(0, 6).map((room) => (
             <div
               key={room._id}
@@ -31,7 +32,7 @@ const LatestRooms = async () => {
                className="w-full h-52 object-cover"
              />
 
-              <div className="p-4">
+              <div className="p-4 space-y-2">
                 <h3 className="text-xl font-bold">{room.title}</h3>
 
                 <p>
@@ -46,9 +47,9 @@ const LatestRooms = async () => {
                 </p>
 
                 <Link href={`/rooms/${room._id}`}>
-                  <button className="mt-3 bg-blue-600 text-white px-4 py-2 rounded">
+                  <Button className="mt-3 rounded-md">
                     View Details
-                  </button>
+                  </Button>
                 </Link>
               </div>
             </div>
