@@ -1,3 +1,4 @@
+import BookingForm from "@/components/rooms/BookingForm";
 import DeleteButton from "@/components/rooms/DeleteButton";
 import { Button } from "@heroui/react";
 import Image from "next/image";
@@ -84,9 +85,7 @@ const RoomDetailsPage = async ({ params }) => {
 
           <DeleteButton id={room._id}></DeleteButton>
 
-          <Button variant="primary" className="rounded">
-            Book Now
-          </Button>
+          <BookingForm room={room} />
 
         </div>
       </div>
