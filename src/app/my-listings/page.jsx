@@ -13,7 +13,7 @@ const MyListingsPage = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/api/my-listings/${user.email}`, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/my-listings/${user.email}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const MyListingsPage = () => {
   }, [user]);
 
   const handleDelete = async (id) => {
-    const res = await fetch(`http://localhost:5000/api/rooms/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rooms/${id}`, {
       method: "DELETE",
       credentials: "include"
     });

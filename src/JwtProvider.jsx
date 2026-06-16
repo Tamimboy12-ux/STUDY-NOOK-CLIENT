@@ -8,7 +8,7 @@ const JwtProvider = () => {
 
   useEffect(() => {
     if (data?.user?.email) {
-      fetch("http://localhost:5000/jwt", {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/jwt`, {
         method: "POST",
         credentials: "include",
         headers: {

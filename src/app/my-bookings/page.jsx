@@ -13,7 +13,7 @@ const MyBookingsPage = () => {
 
   useEffect(() => {
   if (user?.email) {
-    fetch(`http://localhost:5000/api/bookings/${user.email}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/bookings/${user.email}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const MyBookingsPage = () => {
 
   const handleCancel = async (id) => {
     const res = await fetch(
-      `http://localhost:5000/api/bookings/cancel/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/bookings/cancel/${id}`,
       {
         method: "PATCH",
         credentials: "include"

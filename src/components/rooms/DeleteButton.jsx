@@ -20,7 +20,7 @@ const DeleteButton = ({ id }) => {
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/rooms/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rooms/${id}`, {
         method: "DELETE",
       });
 

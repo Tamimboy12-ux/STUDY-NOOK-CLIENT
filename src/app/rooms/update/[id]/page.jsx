@@ -31,7 +31,7 @@ const UpdateRoomPage = () => {
   ];
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/rooms/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rooms/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data) {
@@ -85,7 +85,7 @@ const UpdateRoomPage = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:5000/api/rooms/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rooms/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

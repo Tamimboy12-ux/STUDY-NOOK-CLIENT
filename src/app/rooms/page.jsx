@@ -17,7 +17,7 @@ const RoomsPage = async ({ searchParams }) => {
   const search = params?.search || "";
 
   const res = await fetch(
-    `http://localhost:5000/api/rooms?search=${search}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/rooms?search=${search}`,
     {
       cache: "no-store",
     }

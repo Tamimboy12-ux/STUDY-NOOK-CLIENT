@@ -4,7 +4,7 @@ import Link from "next/link";
 
 
 const LatestRooms = async () => {
-    const res = await fetch("http://localhost:5000/api/rooms", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rooms`, {
     cache: "no-store",
   });
 

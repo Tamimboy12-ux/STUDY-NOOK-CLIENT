@@ -43,7 +43,7 @@ const BookingForm = ({ room }) => {
     };
 
     const res = await fetch(
-      "http://localhost:5000/api/bookings",
+      `${process.env.NEXT_PUBLIC_API_URL}/api/bookings`,
       {
         method: "POST",
         credentials: "include",

@@ -33,7 +33,7 @@ const handleGoogleLogin = async () => {
     setTimeout(async () => {
       try {
         const session = await fetch(
-          "http://localhost:3000/api/auth/session",
+          `${process.env.NEXT_PUBLIC_BETTER_AUTH_URL}/api/auth/session`,
           {
             credentials: "include",
           }
@@ -46,7 +46,7 @@ const handleGoogleLogin = async () => {
           return;
         }
 
-        await fetch("http://localhost:5000/jwt", {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/jwt`, {
           method: "POST",
           credentials: "include",
           headers: {
@@ -93,7 +93,7 @@ const handleGoogleLogin = async () => {
         return;
       }
 
-      await fetch("http://localhost:5000/jwt", {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/jwt`, {
         method: "POST",
         credentials: "include",
         headers: {
