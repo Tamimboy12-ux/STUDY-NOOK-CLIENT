@@ -1,19 +1,21 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
-export function proxy (request) {
-  const sessionToken = request.cookies.get('better-auth.session-token')?.value || 
-        request.cookies.get('token')?.value;
+export function proxy(request) {
+  const betterAuthToken =
+    request.cookies.get("__Secure-better-auth.session_token");
 
-  const { pathname } = request.nextUrl;
+  const jwtToken =
+    request.cookies.get("token");
 
-  if (!sessionToken) {
-    if (!pathname.startsWith('/login') && !pathname.startsWith('/register')) {
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
-  }
+  const pathname = request.nextUrl.pathname;
 
-  if (sessionToken && (pathname.startsWith('/login') || pathname.startsWith('/register'))) {
-    return NextResponse.redirect(new URL('/', request.url));
+  const isLoggedIn =
+    betterAuthToken || jwtToken;
+
+  if (!isLoggedIn) {
+    return NextResponse.redirect(
+      new URL("/login", request.url)
+    );
   }
 
   return NextResponse.next();
