@@ -23,13 +23,49 @@ export default function RegisterPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleGoogleLogin = async () => {
-    await signIn.social({
-      provider: "google",
-    });
+ const handleGoogleLogin = async () => {
+  try {
 
-    toast.success("Google SignIn Successful")
-  };
+    await signIn.social({ provider: "google" });
+    
+    setTimeout(async () => {
+      try {
+        const session = await fetch(
+          "http://localhost:3000/api/auth/session",
+          {
+            credentials: "include",
+          }
+        );
+
+        const data = await session.json();
+
+        if (!data?.user?.email) {
+          console.log("No session yet");
+          return;
+        }
+
+        await fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: data.user.email,
+          }),
+        });
+      } catch (err) {
+        console.log("Session error", err);
+      }
+    }, 1200);
+
+    toast.success("Google Login Successful");
+    router.push("/");
+
+  } catch (err) {
+    toast.error("Google login failed");
+  }
+};
 
   const handleRegister = async (e) => {
     e.preventDefault();

@@ -63,6 +63,7 @@ export default function AddRoomPage() {
     try {
       const res = await fetch("http://localhost:5000/api/rooms", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

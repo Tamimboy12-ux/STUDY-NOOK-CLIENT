@@ -20,7 +20,7 @@ const Banner = () => {
                     <div className="flex gap-4 mt-8">
 
                         <Link href="/rooms">
-                            <Button variant="primary">
+                            <Button variant="primary" className="rounded-md">
                                 Explore Rooms
                             </Button>
                         </Link>

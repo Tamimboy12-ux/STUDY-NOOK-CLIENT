@@ -3,33 +3,85 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Card, TextField, Label, Input, InputGroup, Button, Form, Alert,} from "@heroui/react";
 
-import { ArrowLeft, Envelope, Lock, Eye, EyeSlash,} from "@gravity-ui/icons";
+import {
+  Card,
+  TextField,
+  Label,
+  Input,
+  InputGroup,
+  Button,
+  Form,
+  Alert,
+} from "@heroui/react";
 
-import { signIn } from "@/lib/auth-client";
+import {
+  ArrowLeft,
+  Envelope,
+  Lock,
+  Eye,
+  EyeSlash,
+} from "@gravity-ui/icons";
+
+import { signIn, useSession } from "@/lib/auth-client";
 import { FaGoogle } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { data: session } = useSession();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [isVisible, setIsVisible] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
+
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleGoogleLogin = async () => {
-     await signIn.social({
-       provider: "google",
-     });
+const handleGoogleLogin = async () => {
+  try {
+    await signIn.social({ provider: "google" });
 
-     toast.success("Google SignIn Successful")
-  };
+    setTimeout(async () => {
+      try {
+        const session = await fetch(
+          "http://localhost:3000/api/auth/session",
+          {
+            credentials: "include",
+          }
+        );
+
+        const data = await session.json();
+
+        if (!data?.user?.email) {
+          console.log("No session yet");
+          return;
+        }
+
+        await fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: data.user.email,
+          }),
+        });
+      } catch (err) {
+        console.log("Session error", err);
+      }
+    }, 1200);
+
+    toast.success("Google Login Successful");
+    router.push("/");
+
+  } catch (err) {
+    toast.error("Google login failed");
+  }
+};
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -51,30 +103,38 @@ export default function LoginPage() {
       });
 
       if (error) {
-        setErrorMessage(
-          error.message || "Invalid email or password."
-        );
+        setErrorMessage(error.message || "Invalid email or password.");
         return;
       }
 
+      await fetch("http://localhost:5000/jwt", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      toast.success("Login Successful");
+
       setSuccessMessage("Login successful! Redirecting...");
 
-      setTimeout(() => {
-        router.push("/");
-      }, 1500);
+      router.push("/");
+
     } catch (error) {
       console.error(error);
       setErrorMessage("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
-
-    toast.success("Login Successful")
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 dark:bg-zinc-900">
       <Card className="w-full max-w-md p-6 shadow-lg flex flex-col gap-4">
+
+        {/* HEADER */}
         <div className="flex flex-col items-start gap-1">
           <Button
             variant="light"
@@ -95,16 +155,13 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <Form
-          onSubmit={handleLogin}
-          className="flex flex-col gap-4 w-full"
-        >
+        <Form onSubmit={handleLogin} className="flex flex-col gap-4 w-full">
+
           {errorMessage && (
             <Alert
               color="danger"
               title={errorMessage}
               variant="faded"
-              className="w-full"
             />
           )}
 
@@ -113,14 +170,10 @@ export default function LoginPage() {
               color="success"
               title={successMessage}
               variant="faded"
-              className="w-full"
             />
           )}
 
-          <TextField
-            isRequired
-            className="w-full flex flex-col gap-1"
-          >
+          <TextField isRequired>
             <Label>Email Address</Label>
 
             <InputGroup>
@@ -137,11 +190,7 @@ export default function LoginPage() {
             </InputGroup>
           </TextField>
 
-          {/* Password */}
-          <TextField
-            isRequired
-            className="w-full flex flex-col gap-1"
-          >
+          <TextField isRequired>
             <Label>Password</Label>
 
             <InputGroup>
@@ -150,8 +199,8 @@ export default function LoginPage() {
               </InputGroup.Prefix>
 
               <Input
-                placeholder="Enter Password"
                 type={isVisible ? "text" : "password"}
+                placeholder="Enter Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -159,9 +208,9 @@ export default function LoginPage() {
               <InputGroup.Suffix>
                 <Button
                   isIconOnly
+                  type="button"
                   variant="ghost"
                   size="sm"
-                  type="button"
                   onPress={() => setIsVisible(!isVisible)}
                 >
                   {isVisible ? (
@@ -183,23 +232,24 @@ export default function LoginPage() {
             {isLoading ? "Logging In..." : "Login"}
           </Button>
 
-           <div className="">
-              <p className="text-center text-gray-600">Or</p>
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full"
-                onPress={handleGoogleLogin}
-              >
-                <FaGoogle />
-                Continue with Google
-              </Button>
-            </div>
+          <div>
+            <p className="text-center text-gray-600">Or</p>
+
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full mt-2"
+              onPress={handleGoogleLogin}
+            >
+              <FaGoogle />
+              Continue with Google
+            </Button>
+          </div>
         </Form>
 
         <div className="text-center text-sm mt-2">
           <span className="text-gray-500">
-            Do not have an account?{" "}
+            Don not have an account?{" "}
           </span>
 
           <Link

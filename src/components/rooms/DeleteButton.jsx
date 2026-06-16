@@ -1,12 +1,17 @@
 "use client";
 
+import { useSession } from "@/lib/auth-client";
 import { Button } from "@heroui/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 const DeleteButton = ({ id }) => {
   const router = useRouter();
+
+  const {data} = useSession()
+  const user = data?.user
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,13 +43,21 @@ const DeleteButton = ({ id }) => {
 
   return (
     <>
-      <Button
+      {user ? (
+        <Button
         variant="danger"
         onClick={() => setIsOpen(true)}
         className="rounded"
       >
         Delete
       </Button>
+      ) : (
+      <Link href="/login">
+      <Button variant="danger" className="rounded">
+         Login to Delete
+      </Button>
+      </Link>
+      )}
 
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm animate-fade-in">

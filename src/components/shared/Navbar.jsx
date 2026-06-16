@@ -11,6 +11,11 @@ const Navbar = () => {
   const user = data?.user;
 
   const handleLogout = async () => {
+    await fetch("http://localhost:5000/logout", {
+  method: "POST",
+  credentials: "include",
+});
+
     await signOut();
     toast.success("Logout Success")
     

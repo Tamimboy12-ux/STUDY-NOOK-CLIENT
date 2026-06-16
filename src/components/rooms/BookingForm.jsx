@@ -4,9 +4,12 @@ import { useState } from "react";
 import { useSession } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { Button } from "@heroui/react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const BookingForm = ({ room }) => {
   const { data } = useSession();
+  const router = useRouter();
 
   const user = data?.user;
 
@@ -43,6 +46,7 @@ const BookingForm = ({ room }) => {
       "http://localhost:5000/api/bookings",
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -55,6 +59,7 @@ const BookingForm = ({ room }) => {
     if (res.ok) {
       toast.success("Room booked successfully");
       setShowForm(false);
+      router.push("/my-bookings")
     } else {
       toast.error(data.message);
     }
@@ -63,12 +68,20 @@ const BookingForm = ({ room }) => {
   return (
     <div>
 
-      <Button
+     {user ? (
+        <Button
         onClick={() => setShowForm(!showForm)}
         className="bg-green-600 text-white px-5 py-2 rounded"
       >
         Book Now
       </Button>
+     ) : (
+        <Link href="/login">
+        <Button variant="primary" className="rounded">
+           Login to Book
+        </Button>
+        </Link>
+     )}
 
       {
         showForm && (
