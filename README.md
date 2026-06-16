@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+*** StudyNook ***
 
-## Getting Started
+StudyNook is a full-stack study room booking platform where users can discover, add, manage, and book study rooms. Users can authenticate using email/password or Google login and manage their own bookings and room listings.
 
-First, run the development server:
+** Features **
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+* User authentication with Better Auth
+* Email/password login & registration
+* Google authentication
+* Add new study rooms
+* Browse available study rooms
+* Search and filter rooms
+* Room details page
+* Book study rooms by selecting date and time
+* Prevent overlapping room bookings
+* My Listings page
+* Edit room information
+* Delete room functionality
+* My Bookings page
+* Cancel booking option
+* Responsive design
+* Dynamic metadata
+* Loading UI
+* Custom 404 page
+* Dark mode support
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+** Technologies Used **
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+** Frontend **
+* Next.js 16
+* React
+* Tailwind CSS
+* HeroUI
+* React Hot Toast
 
-## Learn More
+** Backend **
+* Node.js
+* Express.js
+* Better Auth
+* MongoDB
+* JWT
 
-To learn more about Next.js, take a look at the following resources:
+** Database **
+* MongoDB Atlas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+** Authentication **
+* Better Auth
+* Google OAuth
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+** NPM Packages Used **
 
-## Deploy on Vercel
+** Client **
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+npm install @heroui/react
+npm install react-hot-toast
+npm install better-auth
+npm install next-themes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+** Server **
+
+npm install express
+npm install mongodb
+npm install cors
+npm install dotenv
+npm install cookie-parser
+npm install better-auth
+
+
+**** Author ****
+Name: Borsha

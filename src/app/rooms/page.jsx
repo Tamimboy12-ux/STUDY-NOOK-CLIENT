@@ -2,6 +2,14 @@ import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 
+
+export const metadata = {
+  title: "StudyNook - Available Rooms",
+  description:
+    "Find and book private study rooms in libraries. List your own rooms and manage bookings easily.",
+};
+
+
 const RoomsPage = async ({ searchParams }) => {
 
   const params = await searchParams;
